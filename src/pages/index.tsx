@@ -1,16 +1,13 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useContext } from "react";
 
 import { MyHeader } from "../components/Header";
 import ModalOverlay from "../components/ModalOverlay";
+import { ModalContext } from "../context/ModalContext";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
-  const [modalIsActive, setModalActive] = useState(false);
-
-  function openModal() {
-    setModalActive(true);
-  }
+function Home() {
+  const { modalIsActive, changeActiveState } = useContext(ModalContext);
 
   return (
     <div className={styles.homeContainer}>
@@ -56,7 +53,7 @@ export default function Home() {
 
           <button
             type="button"
-            onClick={openModal}
+            onClick={changeActiveState}
             className={`${styles.button} ${styles.new}`}
           >
             + Nova Transação
@@ -76,7 +73,7 @@ export default function Home() {
         </section>
       </main>
 
-      {modalIsActive && <ModalOverlay isActive={modalIsActive} />}
+      {modalIsActive && <ModalOverlay />}
 
       <footer className={styles.footer}>
         <a
@@ -90,3 +87,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;

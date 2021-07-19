@@ -1,18 +1,17 @@
+import { useContext } from "react";
+
+import { ModalContext } from "../context/ModalContext";
 import styles from "../styles/components/Modal.module.css";
 
-type ModalProps = {
-  isActive: boolean;
-};
-
-const ModalOverlay = ({ isActive }: ModalProps) => {
-  function handleSubmit() {}
+const ModalOverlay = () => {
+  const { modalIsActive, changeActiveState } = useContext(ModalContext);
 
   return (
-    <div className={`${styles.modalOverlay} ${isActive && styles.active}`}>
+    <div className={`${styles.modalOverlay} ${modalIsActive && styles.active}`}>
       <div className={styles.modal}>
         <div id={styles.form}>
           <h2>Nova Transação</h2>
-          <form action="" onSubmit={handleSubmit}>
+          <form action="" onSubmit={() => {}}>
             <div className={styles.inputGroup}>
               <label className="sr-only" htmlFor="description">
                 Descrição
@@ -53,6 +52,7 @@ const ModalOverlay = ({ isActive }: ModalProps) => {
               <button
                 type="button"
                 className={`${styles.button} ${styles.cancel}`}
+                onClick={changeActiveState}
               >
                 Cancelar
               </button>
