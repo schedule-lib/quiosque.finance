@@ -1,13 +1,15 @@
 import Head from "next/head";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { MyHeader } from "../components/Header";
 import ModalOverlay from "../components/ModalOverlay";
 import { ModalContext } from "../context/ModalContext";
+import { useTransactions } from "../hooks/useTransactions";
 import styles from "../styles/Home.module.css";
 
 function Home() {
   const { modalIsActive, changeActiveState } = useContext(ModalContext);
+  const [transactions] = useState(useTransactions());
 
   return (
     <div className={styles.homeContainer}>
@@ -68,7 +70,15 @@ function Home() {
                 <th />
               </tr>
             </thead>
-            <tbody />
+            <tbody>
+              {transactions?.map((transaction) => (
+                <tr key={transaction.id}>
+                  <td>{transaction.description}</td>
+                  <td>{transaction.amount}</td>
+                  <td>{transaction.date}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </section>
       </main>
